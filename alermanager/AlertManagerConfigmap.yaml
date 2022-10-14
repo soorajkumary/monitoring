@@ -1,0 +1,31 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+    templates:
+    - '/etc/alertmanager/*.tmpl'
+    route:
+      receiver: alert-emailer
+      group_by: ['alertname', 'priority']
+      group_wait: 10s
+      repeat_interval: 10s
+ 
+    receivers:
+    - name: alert-emailer
+      email_configs:
+      - to: 'soorajynaik036@gmail.com'
+        from: 'sooraj.naik@3insys.com'
+        smarthost: smtp.gmail.com:587
+        auth_username: 'sooraj.naik@3insys.com'
+        auth_identity: 'sooraj.naik@3insys.com'
+        auth_password: 'bbpzeunvminvaxib'
+    inhibit_rules:
+      - source_match:
+          severity: 'critical'
+        target_match:
+          severity: 'warning'
+        equal: ['alertname', 'dev', 'instance']	
