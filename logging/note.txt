@@ -1,0 +1,53 @@
+Fluent Bit is a logging processor and forwarder
+
+Input - Gathers logs from different sources these sources can be file or systemd process anything which generate logs
+Parse - Converts logs in to a structured format
+Filter - Modifiying the records my be you want to remove some feilds from those records or we want to add some feilds those operations are taken care by filters 
+Output - Processing the records like aggregations and calculation and then those records are sent to the routing
+Routing - Routing takes care of sending those messages to the destinations as per your configuration lets say we have configured such that error messages should go to elasticsearch or all the information logs should go to s3 bucket those things are taken care by routing with the help of tags
+
+-------------------------------------------------------------------------------------
+bottle-rocket
+
+api-pod-daemonset.yaml 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Running OpenSearch with the OpenSearch Operator
+
+helm repo add opensearch-operator https://opster.github.io/opensearch-k8s-operator/
+
+helm install opensearch-operator opensearch-operator/opensearch-operator
+
+Then create a file named  opensearch-cluster.yaml and apply after operator creation
+
+Note: Error from server (NotFound): error when creating "opensearch-cluster.yaml": the server could not find the requested resource (post opensearchclusters.opensearch.opster.io) --> 4
+If you get this error remove and reinstall the opensearch operator
+
+-------------------------------------------------------------------------------------------------------------------
+
+kubectl create secret generic opensearchpass \
+--from-literal=username=admin \
+--from-literal=password=admin
+
+-------------------------------------------------------------------------------------------------------------------
+
+then run helm command
+
+helm repo add fluent-operator https://tanmay-bhat.github.io/helm-charts/
+
+helm install my-fluent-operator fluent-operator/fluent-operator --version 0.1.0
+
+create the file named fluent-bit-opensearch.yaml and kubectl apply it
+
+
+
+
+OK, now that you have all the components, you can start seeing how this all comes together. Fire up OpenSearch Dashboards and head over to Dev Tools (Hamburger menu > Management heading).
+
+On the left side of the screen you can type your queries. First, run the following query to confirm that you’ve go a Fluent Bit sourced index:
+
+GET /_cat/indices/fluent-log-*?h=index
+After clicking the play arrow, you should see the index name(s) created by the Fluent Bit example in the right-hand panel.
+
+
+https://opensearch-cluster.default.
