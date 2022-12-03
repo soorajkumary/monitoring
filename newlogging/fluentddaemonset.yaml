@@ -28,7 +28,7 @@ spec:
         image: soorajkumary/fluentd-opensearch
         env:
           - name:  FLUENT_OPENSEARCH_HOST
-            value: "opensearch-cluster-masters"
+            value: "opensearch.elastic-kibana"
           - name:  FLUENT_OPENSEARCH_PASSWORD
             value: "9200"
         resources:

@@ -12,7 +12,7 @@ data:
     @include pods-kind-fluent.conf
     #@include pods-fluent.conf
     #@include file-fluent.conf
-    @include elastic-fluent.conf
+    @include open-fluent.conf
   pods-kind-fluent.conf: |-
     <source>
       @type tail
@@ -64,15 +64,10 @@ data:
       skip_master_url "#{ENV['FLUENT_KUBERNETES_METADATA_SKIP_MASTER_URL'] || 'false'}"
       skip_namespace_metadata "#{ENV['FLUENT_KUBERNETES_METADATA_SKIP_NAMESPACE_METADATA'] || 'false'}"
     </filter>
-  file-fluent.conf: |-
-    <match **>
-      @type file
-      path /tmp/file-test.log
-    </match>
   open-fluent.conf: |-
     <match **>
       @type opensearch
-      host "#{ENV['FLUENT_OPENSEARCH_HOST'] || 'elasticsearch.elastic-kibana'}"
+      host "#{ENV['FLUENT_OPENSEARCH_HOST'] || 'opensearch.elastic-kibana'}"
       port "#{ENV['FLUENT_OPENSEARCH_PORT'] || '9200'}"
       index_name fluentd-k8s
       type_name fluentd

@@ -6,7 +6,7 @@ metadata:
     name: opensearch-3
 spec:
   hostPath:
-    path: "/home/linuxadmin@edw.local/opensearch"
+    path: "/home/ubuntu/opensearch3"
   capacity:
     storage: 10Gi
   accessModes:

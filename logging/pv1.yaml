@@ -6,7 +6,7 @@ metadata:
     name: opensearch-1
 spec:
   hostPath:
-    path: "/home/ubutnu/opensearch1"
+    path: "/home/ubuntu/opensearch1"
   capacity:
     storage: 10Gi
   accessModes:
