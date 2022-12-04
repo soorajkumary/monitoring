@@ -41,7 +41,7 @@ data:
   fluent-bit.conf: |
     [SERVICE]
         Flush         2
-        Log_Level     info
+        Log_Level     debug
         Daemon        off
         Parsers_File  parsers.conf
         HTTP_Server   On
@@ -82,7 +82,7 @@ data:
         Retry_Limit     False
         tls             On
         tls.verify      Off
-        Logstash_Prefix "@timestamp"
+        Logstash_Prefix @timestamp
  
   parsers.conf: |
     [PARSER]
