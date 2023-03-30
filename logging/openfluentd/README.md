@@ -9,9 +9,22 @@ Before beginning with the installation process, ensure you have the following pr
 - A Kubernetes cluster with Helm installed.
 - Access to the command-line interface (CLI) of the Kubernetes cluster.
 
+For Custom configuration
+
+```sh
+
+helm install opensearch ./charts/opensearch
+
+helm install opensearch-dashboards ./charts/opensearch-dashboards
+
+kubectl apply -f fluentd.yaml
+
+```
+
 ## Step 1: Adding the OpenSearch Helm Chart Repository
 
 The first step in installing OpenSearch using Helm is to add the OpenSearch Helm chart repository to your Helm configuration. This repository contains the charts required to install OpenSearch and OpenSearch Dashboards.
+
 
 To add the OpenSearch Helm chart repository, run the following command:
 
