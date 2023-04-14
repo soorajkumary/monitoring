@@ -4,7 +4,7 @@ metadata:
   name: prometheus-server-conf
   labels:
     name: prometheus-server-conf
-  namespace: monitoring
+#  namespace: monitoring
 data:
   prometheus.rules: |-
     groups:
@@ -24,17 +24,17 @@ data:
           severity: critical
         annotations:
           summary: High Memory Usage
-      - alert: HostHighCpuLoad
-        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
-        for: 0m
+      - alert: High Pod Cpu Usage
+        expr: sum(rate(container_cpu_usage_seconds_total[1m])) > 0.9
+        for: 1m
         labels:
-          severity: warning
+          severity: critical
         annotations:
-          summary: Host high CPU load (instance {{ $labels.instance }})
+          summary: Host high CPU Usage (instance {{ $labels.instance }})
           description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: KubernetesPodNotHealthy
-        expr: min_over_time(sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed"})[15m:1m]) > 0
-        for: 0m
+        expr: kube_pod_status_phase{phase!="Running"} == 1
+        for: 6m
         labels:
           severity: critical
         annotations:
