@@ -1,0 +1,15 @@
+kubectl apply -f pv.yaml
+
+helm repo add opensearch-operator https://opster.github.io/opensearch-k8s-operator/
+
+
+helm install opensearch-operator opensearch-operator/opensearch-operator
+
+
+kubectl apply -f opensearch-cluster.yaml
+
+
+kubectl create secret generic opensearchpass --from-literal=username=admin --from-literal=password=admin
+
+
+kubectl apply -f fluent-bit.yaml -n default

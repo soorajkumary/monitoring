@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ofk-pv3
+  labels:
+    name: ofk-pv3
+spec:
+  storageClassName: ""
+  hostPath:
+    path: "/home/linuxadmin/opensearch/ofk3"
+  capacity:
+    storage: 20Gi
+  accessModes:
+  - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: pv-preference
+          operator: In
+          values:
+          - preferred
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ofk-pv4
+  labels:
+    name: ofk-pv4
+spec:
+  storageClassName: ""
+  hostPath:
+    path: "/home/linuxadmin/opensearch/ofk4"
+  capacity:
+    storage: 20Gi
+  accessModes:
+  - ReadWriteOnce
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: pv-preference
+          operator: In
+          values:
+          - preferred
